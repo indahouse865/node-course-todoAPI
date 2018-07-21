@@ -147,7 +147,7 @@ describe("PATCH /todos/:id", () => {
         .patch(`/todos/${hexId}`)
         .send({
             completed: true,
-            text: text
+            text
         })
         .expect(200)
         .expect((res) => {
@@ -158,6 +158,7 @@ describe("PATCH /todos/:id", () => {
         })
         .end(done);
     });
+
     it("Should clear completed at whe todo is not completed", (done) => {
         let hexId = todos[1]._id.toHexString();
         let text = "This should updat the second items text";
@@ -165,7 +166,7 @@ describe("PATCH /todos/:id", () => {
         .patch(`/todos/${hexId}`)
         .send({
             completed: false,
-            text: text
+            text
         })
         .expect(200)
         .expect((res) => {
