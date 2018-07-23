@@ -58,6 +58,7 @@ app.delete("/todos/:id", (req, res) => {
     if (!ObjectID.isValid(id)) {
         return res.status(404).send("Invalid object ID");
     }
+
     Todo.findByIdAndRemove(id).then((todo) => {
         if (!todo) {
             return res.status(404).send("NO ID FOUND");
@@ -88,19 +89,23 @@ app.patch("/todos/:id", (req, res) => {
         if (!todo) {
             return res.status(404).send("404 - ID does not exist");
         }
+            
         res.send({todo});
     }).catch((e) => {
         res.status(400).send("400");
     });
 });
 
+
 app.post("/users", (req, res) => {
     let body = _.pick(req.body, ["email", "password"]);
     let user = new User(body);
 
-    user.save().then((newUser) => {
-        res.send(newUser);
-    }, (e) => {
+    user.save().then(() => {
+        return user.generateAuthToken();
+    }).then((token) => {
+        res.header("x-auth", token).send(user);
+    }).catch((e) => {
         res.status(400).send(e);
     });
 });
