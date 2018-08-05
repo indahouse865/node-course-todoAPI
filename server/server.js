@@ -34,7 +34,7 @@ app.get("/todos", (req, res) => {
         res.status(400).send(e);
     });
 });
-//5b421aea46ee963428825f20
+
 app.get("/todos/:id", (req, res) => {
     let id = req.params.id;
     //validate id
