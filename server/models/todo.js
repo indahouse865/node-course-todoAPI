@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Todo = mongoose.model("Todo", {
     text: {
         type: String,
-        require: true,
+        required: true,
         minlength: 1,
         trim: true
     },
@@ -14,6 +14,10 @@ const Todo = mongoose.model("Todo", {
     completedAt: {
         type: Number,
         default: null
+    },
+    _creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 });
 
